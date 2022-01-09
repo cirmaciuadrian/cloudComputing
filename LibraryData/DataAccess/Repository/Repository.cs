@@ -10,7 +10,7 @@ namespace LibraryData.DataAccess.Repository
     {
         // Must whitelist your IP in the Azure portal -> SQL Server instance
 
-        public static bool AddStuff(Student student, Class classTobeInserted)
+        public static bool AddStudent(Student student)
         {
             using Context myContext = new Context();
 
@@ -19,12 +19,22 @@ namespace LibraryData.DataAccess.Repository
                 myContext.Students.Add(student);
             }
 
-            if (classTobeInserted != null)
-            {
-                myContext.Classes.Add(classTobeInserted);
-            }
+            //if (classTobeInserted != null)
+            //{
+            //    myContext.Classes.Add(classTobeInserted);
+            //}
 
             return myContext.SaveChanges() != 0;
+        }
+
+        public static void AddClass(Class newClass)
+        {
+            using Context myContext = new Context();
+            if(newClass != null)
+            {
+                myContext.Classes.Add(newClass);
+            }
+            myContext.SaveChanges();
         }
 
         public static List<Class> GetClasses()
@@ -39,27 +49,30 @@ namespace LibraryData.DataAccess.Repository
         public static List<Student> GetStudents(string studentName)
         {
             using Context myContext = new Context();
-
-            var students = myContext.Students.Where(s => s.StudentName == studentName).ToList();
+            List<Student> students = null;
+            if (studentName != null)
+                students = myContext.Students.Where(s => s.StudentName == studentName).ToList();
+            else
+                students = myContext.Students.ToList();
 
             return students;
         }
 
 
-        public static bool UpdateStudent(Student student)
-        {
-            using Context myContext = new Context();
+        //public static bool UpdateStudent(Student student)
+        //{
+        //    using Context myContext = new Context();
 
-            Student dbStudent = myContext.Students.Where(s => s.StudentID == student.StudentID).FirstOrDefault();
+        //    Student dbStudent = myContext.Students.Where(s => s.StudentID == student.StudentID).FirstOrDefault();
 
-            if (dbStudent != null)
-            {
-                dbStudent.StudentName = student.StudentName;
-                dbStudent.Age = student.Age;
-                dbStudent.StudentClasses = student.StudentClasses;
-            }
+        //    if (dbStudent != null)
+        //    {
+        //        dbStudent.StudentName = student.StudentName;
+        //        dbStudent.Age = student.Age;
+        //        dbStudent.StudentClasses = student.StudentClasses;
+        //    }
 
-            return myContext.SaveChanges() != 0;
-        }
+        //    return myContext.SaveChanges() != 0;
+        //}
     }
 }

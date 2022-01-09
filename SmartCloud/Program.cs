@@ -19,36 +19,48 @@ namespace SmartCloud
         {
             // Must whitelist your IP in the Azure portal -> SQL Server instance
 
-            if (!GeneralRepository.GetClasses().Any())
+            if (true)
             {
-                Student newStudent = new Student() {
-                    StudentName = "Andrei ABC",
-                    StudentClasses = new List<Class>()
-                    {
-                        new Class()
-                        {
-                            ClassLanguage = Language.English,
-                            ClassName = "myFirstClass",
-                            MaxClassSize = 25
-                        },
-                        new Class()
-                        {
-                            ClassLanguage = Language.French,
-                            ClassName = "mySecondClass",
-                            MaxClassSize = 12
-                        }
-                    }
+                using Context db = new Context();
+                Class newClass = new Class()
+                {
+                    ClassName = "12A",
+                    MaxClassSize = 25
+                };
+                GeneralRepository.AddClass(newClass);
+
+                var addedClass = db.Classes.FirstOrDefault();
+
+                Student newStudent = new Student()
+                {
+                    StudentName = "Cirmaciu Adrian",
+                    Age = 23,
+                    StudentClass=addedClass
+                };
+                Student newStudent2 = new Student()
+                {
+                    StudentName = "Marinescu Andrei",
+                    Age = 22,
+                    StudentClass = addedClass
+                };
+                Student newStudent3 = new Student()
+                {
+                    StudentName = "Popa Andrei",
+                    Age = 24,
+                    StudentClass = addedClass
                 };
 
                 // Add new student with classes
-                GeneralRepository.AddStuff(newStudent, null);
+                GeneralRepository.AddStudent(newStudent);
+                GeneralRepository.AddStudent(newStudent2);
+                GeneralRepository.AddStudent(newStudent3);
 
-                // Update student's age
-                var dbStudent = GeneralRepository.GetStudents(newStudent.StudentName).First();
-                dbStudent.Age = 88;
-                GeneralRepository.UpdateStudent(dbStudent);
+                //// Update student's age
+                //var dbStudent = GeneralRepository.GetStudents(newStudent.StudentName).First();
+                //dbStudent.Age = 88;
+                //GeneralRepository.UpdateStudent(dbStudent);
             }
-           
+
             CreateHostBuilder(args).Build().Run();
         }
 

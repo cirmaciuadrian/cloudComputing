@@ -9,7 +9,7 @@ namespace LibraryData.Classes
         public int StudentID { get; set; }
         public string StudentName { get; set; }
         public int Age { get; set; }
-
-        public List<Class> StudentClasses { get; set; }
+        public Class StudentClass { get; set; }
+       
     }
 }

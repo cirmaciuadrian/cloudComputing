@@ -10,6 +10,8 @@ namespace LibraryData.Classes
         public int ClassID { get; set; }
         public string ClassName { get; set; }
         public int MaxClassSize { get; set; }
-        public Language ClassLanguage { get; set; }
+
     }
+
+   
 }
