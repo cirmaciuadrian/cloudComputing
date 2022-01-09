@@ -1,3 +1,5 @@
+using LibraryData.Classes;
+using LibraryData.Enums;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -14,8 +16,9 @@ namespace SmartCloud
     {
         public static void Main(string[] args)
         {
+            // Must whitelist your IP in the Azure portal -> SQL Server instance
             using Context myContext = new Context();
-            var myClasses = myContext.Classes.Where(c => c.ClassLanguage == Enums.Language.English).ToList();
+            var myClasses = myContext.Classes.Where(c => c.ClassLanguage == Language.English).ToList();
 
             if (myClasses != null && myClasses.Count == 0 )
             {
@@ -26,13 +29,13 @@ namespace SmartCloud
                     {
                         new Class()
                         {
-                            ClassLanguage = Enums.Language.English,
+                            ClassLanguage = Language.English,
                             ClassName = "myFirstClass",
                             MaxClassSize = 25
                         },
                         new Class()
                         {
-                            ClassLanguage = Enums.Language.French,
+                            ClassLanguage = Language.French,
                             ClassName = "mySecondClass",
                             MaxClassSize = 12
                         }
@@ -41,7 +44,6 @@ namespace SmartCloud
                 myContext.SaveChanges();
             }
            
-
             CreateHostBuilder(args).Build().Run();
         }
 

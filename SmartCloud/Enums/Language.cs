@@ -1,10 +1,10 @@
 ﻿namespace SmartCloud.Enums
 {
-    public enum Language
-    {
-        English,
-        Spanish,
-        Russian,
-        French
-    }
+    //public enum Language
+    //{
+    //    English,
+    //    Spanish,
+    //    Russian,
+    //    French
+    //}
 }
