@@ -1,10 +1,10 @@
 ﻿using LibraryData.Classes;
-using LibraryData.Enums;
-using SmartCloud.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace SmartCloud.Repository
+namespace LibraryData.DataAccess.Repository
 {
     public static class GeneralRepository
     {
@@ -46,11 +46,11 @@ namespace SmartCloud.Repository
         }
 
 
-        public static bool UpdateStudent (Student student)
+        public static bool UpdateStudent(Student student)
         {
             using Context myContext = new Context();
 
-            Student dbStudent =  myContext.Students.Where(s => s.StudentID == student.StudentID).FirstOrDefault();
+            Student dbStudent = myContext.Students.Where(s => s.StudentID == student.StudentID).FirstOrDefault();
 
             if (dbStudent != null)
             {
