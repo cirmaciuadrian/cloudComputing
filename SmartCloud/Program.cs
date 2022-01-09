@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartCloud.DataModels;
+using SmartCloud.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,10 @@ namespace SmartCloud
         public static void Main(string[] args)
         {
             // Must whitelist your IP in the Azure portal -> SQL Server instance
-            using Context myContext = new Context();
-            var myClasses = myContext.Classes.Where(c => c.ClassLanguage == Language.English).ToList();
 
-            if (myClasses != null && myClasses.Count == 0 )
+            if (!GeneralRepository.GetClasses().Any())
             {
-                myContext.Students.Add(new Student()
-                {
+                Student newStudent = new Student() {
                     StudentName = "Andrei ABC",
                     StudentClasses = new List<Class>()
                     {
@@ -40,8 +38,15 @@ namespace SmartCloud
                             MaxClassSize = 12
                         }
                     }
-                });
-                myContext.SaveChanges();
+                };
+
+                // Add new student with classes
+                GeneralRepository.AddStuff(newStudent, null);
+
+                // Update student's age
+                var dbStudent = GeneralRepository.GetStudents(newStudent.StudentName).First();
+                dbStudent.Age = 88;
+                GeneralRepository.UpdateStudent(dbStudent);
             }
            
             CreateHostBuilder(args).Build().Run();
