@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmartCloud.Models;
+using SmartCloud.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace SmartCloud.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var url = "https://localhost:49165/weatherforecast";
+            var url = "https://localhost:49167/weatherforecast";
             var data = new
             {
                 orice = "orice"
@@ -40,22 +41,20 @@ namespace SmartCloud.Controllers
                 var response = await httpResponse.Content.ReadAsStringAsync();
           
                 var classes = JsonConvert.DeserializeObject<List<Class>>(response);
-             
+                var model = new ClassViewModel();
+                model.ClassesList = classes;
+                return View(model);
             }
-            //    datalist = Newtonsoft.Json.JsonConvert.DeserializeObject<TapWaterGetOfferWrapper>(result);
-
-
-
-            //    if (datalist.offer.Count > 0)
-            //    {
-            //        foreach (var item in datalist.offer)
-            //        {
-            //            listaFacturiCuOferte = listaFacturiCuOferte + "," + item.product.invoiceDiscounting.invoiceReferenceId;
-            //        }
-            //        listaFacturiCuOferte = listaFacturiCuOferte.Substring(1);
-            //    }
-            //}
-            return View();
+            else
+            {
+                throw new Exception("Erore la call api pentru getClasses");
+            }
+        }
+        [HttpPost]
+        public  async Task<IActionResult> AddClass(Class newClass)
+        {
+            
+            return null;
         }
 
         public IActionResult Privacy()

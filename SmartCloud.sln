@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCloud", "SmartCloud\SmartCloud.csproj", "{19A003C8-EDE2-47BB-9B98-0AC1E16E9C34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microserviciu1", "Microserviciu1\Microserviciu1.csproj", "{FCEB5CC3-32DB-4DCA-93CA-E3795A067C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice Class", "Microserviciu1\Microservice Class.csproj", "{FCEB5CC3-32DB-4DCA-93CA-E3795A067C06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microserviciu2", "Microserviciu2\Microserviciu2.csproj", "{CE9BA4C8-C364-4F8B-8DEB-BDADB2B3C585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroService Student", "Microserviciu2\MicroService Student.csproj", "{CE9BA4C8-C364-4F8B-8DEB-BDADB2B3C585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryData", "LibraryData\LibraryData.csproj", "{BC014119-8B9C-4AEC-8C2C-80A4F49696EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryData", "LibraryData\LibraryData.csproj", "{BC014119-8B9C-4AEC-8C2C-80A4F49696EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

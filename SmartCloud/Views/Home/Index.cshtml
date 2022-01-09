@@ -1,8 +1,71 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SmartCloud.ViewModels.ClassViewModel
+
+@{
+    ViewData["Title"] = "Classes";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+        Add CLASS
+    </button>
+
+</div>
+
+<div class="container  " style="width:700px">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Maximum Capacity</th>
+                <th scope="col">Actions</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ClassesList)
+            {
+                <tr>
+                    <td>@item.ClassID</td>
+                    <td>@item.ClassName</td>
+                    <td>@item.MaxClassSize</td>
+                    <td>@Html.ActionLink("See Sutendts","ViewStudents","Home",new{ classId = item.ClassID }, new{@class ="btn btn-sm  btn-outline-info"}) </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">New Class</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddClass", "Home", FormMethod.Post))
+            {
+               
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Class Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required> 
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Maximum Capacity</label>
+                        @Html.TextBoxFor
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-outline-success" data-dismiss="modal">Create new</button>
+                </div>
+            }
+        </div>
+    </div>
 </div>
