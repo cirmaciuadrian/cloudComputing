@@ -24,7 +24,7 @@ namespace LibraryData.DataAccess.Repository
             //    myContext.Classes.Add(classTobeInserted);
             //}
 
-            return myContext.SaveChanges() != 0;
+                return myContext.SaveChanges() != 0;
         }
 
         public static void AddClass(Class newClass)
@@ -37,7 +37,7 @@ namespace LibraryData.DataAccess.Repository
             myContext.SaveChanges();
         }
 
-        public static List<Class> GetClasses()
+        public static List<Class> GetAllClasses()
         {
             using Context myContext = new Context();
 

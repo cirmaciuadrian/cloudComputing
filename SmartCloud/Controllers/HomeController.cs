@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LibraryData.Classes;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,7 +26,7 @@ namespace SmartCloud.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var url = "https://localhost:49163/weatherforecast";
+            var url = "https://localhost:49165/weatherforecast";
             var data = new
             {
                 orice = "orice"
@@ -37,9 +38,9 @@ namespace SmartCloud.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 var response = await httpResponse.Content.ReadAsStringAsync();
-                JObject json = JObject.Parse(response);
-                var jModel_Offers = json.Value<JObject>("Result");
-                var result = jModel_Offers.ToString();
+          
+                var classes = JsonConvert.DeserializeObject<List<Class>>(response);
+             
             }
             //    datalist = Newtonsoft.Json.JsonConvert.DeserializeObject<TapWaterGetOfferWrapper>(result);
 

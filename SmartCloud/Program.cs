@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SmartCloud.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibraryData.DataAccess;
 
 namespace SmartCloud
 {
@@ -19,15 +19,19 @@ namespace SmartCloud
         {
             // Must whitelist your IP in the Azure portal -> SQL Server instance
 
-            if (true)
+            if (!GeneralRepository.GetStudents("").Any())
             {
                 using Context db = new Context();
-                Class newClass = new Class()
+                if (!GeneralRepository.GetAllClasses().Any())
                 {
-                    ClassName = "12A",
-                    MaxClassSize = 25
-                };
-                GeneralRepository.AddClass(newClass);
+
+                    Class newClass = new Class()
+                    {
+                        ClassName = "12A",
+                        MaxClassSize = 25
+                    };
+                    GeneralRepository.AddClass(newClass);
+                }
 
                 var addedClass = db.Classes.FirstOrDefault();
 
@@ -35,19 +39,19 @@ namespace SmartCloud
                 {
                     StudentName = "Cirmaciu Adrian",
                     Age = 23,
-                    StudentClass=addedClass
+                    ClassId = addedClass.ClassID
                 };
                 Student newStudent2 = new Student()
                 {
                     StudentName = "Marinescu Andrei",
                     Age = 22,
-                    StudentClass = addedClass
+                    ClassId = addedClass.ClassID
                 };
                 Student newStudent3 = new Student()
                 {
                     StudentName = "Popa Andrei",
                     Age = 24,
-                    StudentClass = addedClass
+                    ClassId = addedClass.ClassID
                 };
 
                 // Add new student with classes
