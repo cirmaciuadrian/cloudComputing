@@ -50,7 +50,7 @@ namespace LibraryData.DataAccess.Repository
         {
             using Context myContext = new Context();
             List<Student> students = null;
-            if (studentName != null)
+            if (!string.IsNullOrEmpty(studentName))
                 students = myContext.Students.Where(s => s.StudentName == studentName).ToList();
             else
                 students = myContext.Students.ToList();

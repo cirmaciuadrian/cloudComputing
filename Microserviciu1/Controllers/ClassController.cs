@@ -1,5 +1,8 @@
 ﻿using LibraryData.Classes;
+using LibraryData.DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,29 +11,51 @@ using System.Linq;
 namespace Microservice_Class.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+   
     public class ClassController : ControllerBase
     {
-        // GET: api/<ClassController>
+        [Route("class/get")]
         [HttpGet]
-        public IEnumerable<Class> Get()
+        public IEnumerable<LibraryData.Classes.Class> GetClasses(string orice)
         {
 
-            return LibraryData.DataAccess.Repository.GeneralRepository.GetAllClasses().ToList();
-        
+            return GeneralRepository.GetAllClasses().ToList();
+
         }
+        //// GET: api/<ClassController>
+        //[HttpGet]
+        //public IEnumerable<Class> Get()
+        //{
+
+        //    return LibraryData.DataAccess.Repository.GeneralRepository.GetAllClasses().ToList();
+
+        //}
 
         // GET api/<ClassController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/<ClassController>
+        [Route("class/addclass")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string AddClass(Class newCLass)
         {
+            string msg = "";
+          
+            try
+            {
+                GeneralRepository.AddClass(newCLass);
+                msg = "Class was added succesfuly (message form api)";
+                return msg;
+            }
+            catch (Exception ex)
+            {
+                msg = "eroare: " + ex.ToString();
+                return msg;
+            }
         }
 
         // PUT api/<ClassController>/5

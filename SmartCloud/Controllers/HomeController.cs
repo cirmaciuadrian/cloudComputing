@@ -18,7 +18,7 @@ namespace SmartCloud.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private static HttpClient httpClient = new HttpClient();
+   
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -27,11 +27,12 @@ namespace SmartCloud.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var url = "https://localhost:49167/weatherforecast";
+            var url = "http://MicroserviceClass/class/get";
             var data = new
             {
                 orice = "orice"
             };
+            HttpClient httpClient = new HttpClient();
             var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json")
@@ -39,21 +40,50 @@ namespace SmartCloud.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 var response = await httpResponse.Content.ReadAsStringAsync();
-          
+
                 var classes = JsonConvert.DeserializeObject<List<Class>>(response);
                 var model = new ClassViewModel();
                 model.ClassesList = classes;
+                httpClient.Dispose();
                 return View(model);
             }
             else
             {
                 throw new Exception("Erore la call api pentru getClasses");
             }
+
+            //var model = new ClassViewModel();
+            //model.ClassesList = new List<Class>();
+            //return View(model);
+
         }
         [HttpPost]
-        public  async Task<IActionResult> AddClass(Class newClass)
+        public async Task<IActionResult> AddClass(string name, int capacity)
         {
-            
+            HttpClient httpClient = new HttpClient();
+            Class newClass = new Class { ClassName = name, MaxClassSize = capacity };
+          
+            var uri = new Uri("http://MicroserviceClass/class/AddClass");
+
+            var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, uri)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(newClass), Encoding.UTF8, "application/json")
+            });
+
+            var response = await httpResponse.Content.ReadAsStringAsync();
+
+ 
+            httpClient.Dispose();
+            return Json(new
+            {
+                msg = response
+            });
+
+            //else
+            //{
+            //    throw new Exception("Erore la call api pentru getClasses");
+            //}
+
             return null;
         }
 
