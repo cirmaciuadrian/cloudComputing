@@ -49,9 +49,9 @@ namespace SmartCloud.Controllers
             HttpClient httpClient = new HttpClient();
             Student student = new Student { ClassId = classId, Age = age, StudentName = name };
 
-            var uri = new Uri("http://MicroserviceClass/class/AddClass");
+            var url = "http://MicroserviceStudent/student/add";
 
-            var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, uri)
+            var httpResponse = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, url)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(student), Encoding.UTF8, "application/json")
             });
