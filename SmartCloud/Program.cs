@@ -19,7 +19,7 @@ namespace SmartCloud
         {
             // Must whitelist your IP in the Azure portal -> SQL Server instance
 
-            if (!GeneralRepository.GetStudents("").Any())
+            if (!GeneralRepository.GetStudents().Any())
             {
                 using Context db = new Context();
                 if (!GeneralRepository.GetAllClasses().Any())

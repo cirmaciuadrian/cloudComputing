@@ -46,17 +46,19 @@ namespace LibraryData.DataAccess.Repository
             return classes;
         }
 
-        public static List<Student> GetStudents(string studentName)
+        public static List<Student> GetStudents(int? classId = null)
         {
             using Context myContext = new Context();
             List<Student> students = null;
-            if (!string.IsNullOrEmpty(studentName))
-                students = myContext.Students.Where(s => s.StudentName == studentName).ToList();
+            if (classId!=null)
+                students = myContext.Students.Where(s => s.ClassId == classId.Value).ToList();
             else
                 students = myContext.Students.ToList();
 
             return students;
         }
+
+    
 
 
         //public static bool UpdateStudent(Student student)

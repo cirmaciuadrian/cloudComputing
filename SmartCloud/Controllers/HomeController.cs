@@ -17,13 +17,8 @@ namespace SmartCloud.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-   
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+   
 
         public async Task<IActionResult> Index()
         {
@@ -52,11 +47,9 @@ namespace SmartCloud.Controllers
                 throw new Exception("Erore la call api pentru getClasses");
             }
 
-            //var model = new ClassViewModel();
-            //model.ClassesList = new List<Class>();
-            //return View(model);
 
         }
+
         [HttpPost]
         public async Task<IActionResult> AddClass(string name, int capacity)
         {
@@ -79,23 +72,8 @@ namespace SmartCloud.Controllers
                 msg = response
             });
 
-            //else
-            //{
-            //    throw new Exception("Erore la call api pentru getClasses");
-            //}
-
-            return null;
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }

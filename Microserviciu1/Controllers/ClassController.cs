@@ -22,23 +22,7 @@ namespace Microservice_Class.Controllers
             return GeneralRepository.GetAllClasses().ToList();
 
         }
-        //// GET: api/<ClassController>
-        //[HttpGet]
-        //public IEnumerable<Class> Get()
-        //{
 
-        //    return LibraryData.DataAccess.Repository.GeneralRepository.GetAllClasses().ToList();
-
-        //}
-
-        // GET api/<ClassController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST api/<ClassController>
         [Route("class/addclass")]
         [HttpPost]
         public string AddClass(Class newCLass)
