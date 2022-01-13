@@ -2,21 +2,36 @@ version: '3.4'
 
 services:
   smartcloud:
-    image: ${DOCKER_REGISTRY-}smartcloud
-    build:
+    image: andreigavrilregistry.azurecr.io/smartcloud
+    container_name: smartcloud
+    build: 
       context: .
       dockerfile: SmartCloud/Dockerfile
+    volumes:
+        - andreifileshare  
+
 
   microserviceclass:
-    image: ${DOCKER_REGISTRY-}microserviceclass
+    image: andreigavrilregistry.azurecr.io/microserviceclass
+    container_name: microserviceclass
     build:
       context: .
       dockerfile: Microserviciu1/Dockerfile
 
 
   microservicestudent:
-    image: ${DOCKER_REGISTRY-}microservicestudent
-    build:
+    image: andreigavrilregistry.azurecr.io/microservicestudent
+    container_name: microservicestudent
+    build: 
       context: .
       dockerfile: Microserviciu2/Dockerfile
+   
+volumes:
+ mydata:
+  driver: azure_file
+  driver_opts:
+   share_name: andreifileshare
+   storage_account_name: andreigavrilstorage
+   storageAccountKey: SXXx8+NzSoz3+CwCIRHga4Ch7RwgZikMgRXbJEanPwIbeD8j8VHrbJtVU2GFjNbWkQdNi9rA63SYZTQrktRnxw==
+    
 

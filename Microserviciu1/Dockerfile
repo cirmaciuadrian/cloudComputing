@@ -7,17 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["Microserviciu1/Microservice Class.csproj", "Microserviciu1/"]
+COPY ["Microserviciu1/MicroserviceClass.csproj", "Microserviciu1/"]
 COPY ["LibraryData/LibraryData.csproj", "LibraryData/"]
-RUN dotnet restore "Microserviciu1/Microservice Class.csproj"
+RUN dotnet restore "Microserviciu1/MicroserviceClass.csproj"
 COPY . .
 WORKDIR "/src/Microserviciu1"
-RUN dotnet build "Microservice Class.csproj" -c Release -o /app/build
+RUN dotnet build "MicroserviceClass.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Microservice Class.csproj" -c Release -o /app/publish
+RUN dotnet publish "MicroserviceClass.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Microservice Class.dll"]
+ENTRYPOINT ["dotnet", "MicroserviceClass.dll"]
